@@ -1,0 +1,102 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model Models.Book
+
+@{
+    ViewBag.Title = "Thêm sách mới";
+}
+
+<h2>Thêm sách mới</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Sách</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PublicationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PublicationDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PublicationDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PublishHouse, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PublishHouse, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PublishHouse, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Authorld, "Tác giả", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Authorld", null, "Chọn tác giả", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Authorld, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<h2 class="mt-4">Thêm sách mới</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title)
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Title)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PublicationDate)
+        @Html.TextBoxFor(model => model.PublicationDate, "{0:yyyy-MM-dd}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.PublicationDate)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PublishHouse)
+        @Html.TextBoxFor(model => model.PublishHouse, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.PublishHouse)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Authorld, "Tác giả")
+        @Html.DropDownList("Authorld", (SelectList)ViewBag.Authors, "Chọn tác giả", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Authorld)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Thêm sách</button>
+    <a class="btn btn-secondary" href="@Url.Action("Index", "Book")">Hủy</a>
+}

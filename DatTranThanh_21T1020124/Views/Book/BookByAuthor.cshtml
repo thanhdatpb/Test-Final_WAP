@@ -1,0 +1,76 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<Models.Book>
+
+@{
+    ViewBag.Title = "Sách của Tác giả";
+}
+
+<h2>Sách của Tác giả</h2>
+
+@using (Html.BeginForm("BooksByAuthor", "Book", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.Label("Tác giả:")
+        @Html.DropDownList("authorId", (SelectList)ViewBag.Authors, "Chọn tác giả", new { @class = "form-control", onchange = "this.form.submit();" })
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Title)</th>
+        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PublicationDate)</th>
+        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PublishHouse)</th>
+        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Author.Name)</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+            <td>@Html.DisplayFor(modelItem => item.PublicationDate)</td>
+            <td>@Html.DisplayFor(modelItem => item.PublishHouse)</td>
+            <td>@Html.DisplayFor(modelItem => item.Author.Name)</td>
+        </tr>
+    }
+</table>
+<h2 class="mt-4">Sách của Tác giả</h2>
+
+@using (Html.BeginForm("BooksByAuthor", "Book", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.Label("Tác giả")
+        @Html.DropDownList("authorId", (SelectList)ViewBag.Authors, "Chọn tác giả", new { @class = "form-control", onchange = "this.form.submit();" })
+    </div>
+}
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tiêu đề</th>
+                <th>Ngày xuất bản</th>
+                <th>Nhà xuất bản</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PublicationDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PublishHouse)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có sách nào cho tác giả này.</p>
+}

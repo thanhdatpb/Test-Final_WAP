@@ -1,0 +1,77 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model IEnumerable<Models.Book>
+
+@{
+    ViewBag.Title = "Danh sách sách";
+}
+
+<h2>Danh sách sách</h2>
+
+<p>
+    @Html.ActionLink("Thêm sách mới", "Create")
+</p>
+<p>
+    @Html.ActionLink("Xem sách của tác giả", "BooksByAuthor", "Book", new { authorId = item.Authorld }, null)
+</p>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Title)</th>
+        <th>@Html.DisplayNameFor(model => model.PublicationDate)</th>
+        <th>@Html.DisplayNameFor(model => model.PublishHouse)</th>
+        <th>@Html.DisplayNameFor(model => model.Author.Name)</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+            <td>@Html.DisplayFor(modelItem => item.PublicationDate)</td>
+            <td>@Html.DisplayFor(modelItem => item.PublishHouse)</td>
+            <td>@Html.DisplayFor(modelItem => item.Author.Name)</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Bookld }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Bookld })
+            </td>
+        </tr>
+    }
+</table>
+
+<h2 class="mt-4">Danh sách sách</h2>
+
+<p>
+    <a class="btn btn-primary" href="@Url.Action("Create", "Book")">Thêm sách mới</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Ngày xuất bản</th>
+            <th>Nhà xuất bản</th>
+            <th>Tác giả</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.PublicationDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.PublishHouse)</td>
+                <td>@Html.DisplayFor(modelItem => item.Author.Name)</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Book", new { id = item.Bookld })">Sửa</a>
+                    <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Book", new { id = item.Bookld })">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
